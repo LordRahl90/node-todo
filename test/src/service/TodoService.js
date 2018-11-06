@@ -49,56 +49,56 @@ describe("createNewFailedTodo()",function(){
     });
 });
 
-describe("listAllTodos()", function(){
-    it("Test the listings of all todo Items available in the database", function(){
-        let expectedTotalItems=1;
-        let result=service.listAllTodos();
+// describe("listAllTodos()", function(){
+//     it("Test the listings of all todo Items available in the database", function(){
+//         let expectedTotalItems=1;
+//         let result=service.listAllTodos();
 
-        expect(expectedTotalItems).equals(result.length);
-        expect(result[0]).to.have('id');
-    });
-});
+//         expect(expectedTotalItems).equals(result.length);
+//         expect(result[0]).to.have('id');
+//     });
+// });
 
-describe('showATodo()',function(){
-    it('Show a Single todo', function(){
-        var item={
-            id: "12345",
-            name:"Hello World",
-            completed: false,
-            note: "Hello World, todo. This is a brief note though",
-            created_at: "2018-01-01 20:00:00",
-            updated_at: "2018-11-05 12:00:00"
-        };
-        let expected=item;
-        let id="50412345030";
-        let actual=service.getOneTodo(id);
+// describe('showATodo()',function(){
+//     it('Show a Single todo', function(){
+//         var item={
+//             id: "12345",
+//             name:"Hello World",
+//             completed: false,
+//             note: "Hello World, todo. This is a brief note though",
+//             created_at: "2018-01-01 20:00:00",
+//             updated_at: "2018-11-05 12:00:00"
+//         };
+//         let expected=item;
+//         let id="50412345030";
+//         let actual=service.getOneTodo(id);
 
-        expect(actual).greaterThan(0);
-        expect(actual).to.contain({id});
-    });
-});
-
-
-describe("updateTodo()", function(){
-    it("Test The Update of a todo item, This should also be able to test for upserts.",function(){
-        var item={
-            id: "12345",
-            name:"Hello World",
-            completed: false,
-            note: "Hello World, todo. This is a brief note though",
-            created_at: "2018-01-01 20:00:00",
-            updated_at: "2018-11-05 12:00:00"
-        };
-
-        actual=service.updateTodo(item);
-
-    });
-});
+//         expect(actual).greaterThan(0);
+//         expect(actual).to.contain({id});
+//     });
+// });
 
 
-describe("deleteTodo()", function(){
-    it("Test Removal of a todo item", function(){
-        let id="1234567890";
-        actual=service.deleteTodo(id);
-    });
-});
+// describe("updateTodo()", function(){
+//     it("Test The Update of a todo item, This should also be able to test for upserts.",function(){
+//         var item={
+//             id: "12345",
+//             name:"Hello World",
+//             completed: false,
+//             note: "Hello World, todo. This is a brief note though",
+//             created_at: "2018-01-01 20:00:00",
+//             updated_at: "2018-11-05 12:00:00"
+//         };
+
+//         actual=service.updateTodo(item);
+
+//     });
+// });
+
+
+// describe("deleteTodo()", function(){
+//     it("Test Removal of a todo item", function(){
+//         let id="1234567890";
+//         actual=service.deleteTodo(id);
+//     });
+// });
