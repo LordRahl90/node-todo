@@ -8,9 +8,9 @@ node_js:
 cache:
   directories:
   - node_modules
-install: npm install npm link node-todo
+install: make install npm link node-todo
 script:
-- npm run test
+- make test
 before-install:
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials

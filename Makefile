@@ -11,4 +11,7 @@ start:
 
 test-app:
 	${NPM} test
+
+install:
+	${NPM} install
 	
