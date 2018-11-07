@@ -37,4 +37,7 @@ jobs:
       - run: make test
       
       # run code coverage
-      # - run: make coverage
+      - run: 
+          name: Upload test Coverage
+          command: bash <(curl -s https://codecov.io/bash)
+          when: on_success
