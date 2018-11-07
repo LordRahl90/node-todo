@@ -18,6 +18,14 @@ var todoService={
                 }
             });
         });
+    },
+
+    listAllTodos: async function(){
+        return new Promise((resolve,reject)=>{
+            Todo.find({},function(err,todos){
+                resolve(todos);
+            })
+        });
     }
 };
 
