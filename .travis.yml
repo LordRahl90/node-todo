@@ -4,19 +4,21 @@ env:
   - secure: taax2v7A6iKusBDqT03y2pijSPgBhJsTWjk/AH01woSEbA21b95XqXB5JXPHLyvp+4nm6GFIMNO4b3AfkzxwSvGpA1vahJSrGX3sKsbAAFE5NVgt06qUCcjKWBMpqHvwet2WW6CuE+9CMWhxlbmKIxyFBbIZSL6EpCehRJ/PRU0WcWiB2INczl9iXF5J+z+nBRAHbU51+66XGOaC5lT6kbjmYNAm9+kHqcyOQCouE5P2+KytJQ/w6g6yd0iV47uSzRNhIYcvbJ+OJ7CIVltjov5GOCFMpseeKt5hGwUa8+Z6zwndQr/ZQCbzwLbuUBjHYJgZcQvu+km2WigWmakI/+piehnZlJwY310u9VPZE0JnIO6svld0FWyrkbDh0ha2s8x+deuaux0SWFcMLBPc4jFDZQ51/TtngqQubECSeUb2gnF9eddUC0RlSobgJkXcqftJsVlLC/f6ji/Lyix7k8kV8KB1CW8t1h8IqWlAcXYzVb7q9iw5mHprli9USIKXWyazAaFRLqG1QrQ7P087PR7+gvuSHJmkdNKCou2Uzc2lzx8d0ZWPGNnZpf6sT8Qcoz1D/GEeFLLJ88NtaWF96GlA0NYedsdGU1cQ1GSHBD9Eurk5vEZfzTjZZUhmC3SGJJ8UuL1jrIksrI48CkZfR22gCiV/odeCt62gGSqRdlA=
 language: node_js
 node_js:
-- '10'
+  - '10'
 cache:
   directories:
   - node_modules
-install: make install npm link node-todo
+install: 
+  - make install 
+  - npm link node-todo
 script:
-- make test
+  - make test
 before-install:
-- git config credential.helper "store --file=.git/credentials"
-- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-- cd ..
-- git clone https://github.com/LordRahl90/node-todo.git node-todo
-- cd node-todo
-- npm install
-- npm link
-- cd ../
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+  - cd ..
+  - git clone https://github.com/LordRahl90/node-todo.git node-todo
+  - cd node-todo
+  - npm install
+  - npm link
+  - cd ../
