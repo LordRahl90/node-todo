@@ -9,6 +9,9 @@ NPM=npm
 start:
 	${NPM} start
 
+start-forever:
+	nodemon index.js
+
 coverage:
 	${NPM} run report-coverage
 	

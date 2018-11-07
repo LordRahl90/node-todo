@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha",
     "start": "node index.js",
-    "report-coverage":"nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "author": "Alugbin LordRahl Abiodun Olutola",
   "license": "ISC",

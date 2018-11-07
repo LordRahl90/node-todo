@@ -21,12 +21,18 @@ var todoService={
     },
 
     listAllTodos: async function(){
-        return new Promise((resolve,reject)=>{
-            Todo.find({},function(err,todos){
-                resolve(todos);
-            })
-        });
+        let result=await Todo.find({});
+        return result;
+    },
+    findTodoByName: async function(name){
+        let result=await Todo.findOne({name:name})
+        return result;
+    },
+    findTodoByID: async function(id){
+        let result=await Todo.findById(id);
+        return result;
     }
+
 };
 
 module.exports=todoService;
