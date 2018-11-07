@@ -23,3 +23,6 @@ before-install:
   - npm install
   - npm link
   - cd ../
+
+  after_success:
+    - bash < (curl -S https://codecov.io/bash)
