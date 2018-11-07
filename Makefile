@@ -14,4 +14,7 @@ test-app:
 
 install:
 	${NPM} install
+
+codecov:
+	${NPM} install -g codecov
 	
