@@ -14,6 +14,7 @@ install:
 script:
   - make test
   - codecov
+
 before-install:
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
@@ -24,5 +25,5 @@ before-install:
   - npm link
   - cd ../
 
-  after_success:
-    - bash < (curl -S https://codecov.io/bash)
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
