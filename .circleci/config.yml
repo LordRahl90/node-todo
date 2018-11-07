@@ -37,4 +37,4 @@ jobs:
       - run: make test
       
       # run code coverage
-      - run: make coverage
+      # - run: make coverage
