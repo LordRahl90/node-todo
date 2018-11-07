@@ -10,7 +10,7 @@ cache:
   - node_modules
 install: 
   - make install 
-  - npm link node-todo
+  # - npm link node-todo
 script:
   - make test
 before-install:
