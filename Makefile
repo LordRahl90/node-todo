@@ -9,9 +9,6 @@ NPM=npm
 start:
 	${NPM} start
 
-test-app:
-	${NPM} test
-
 coverage:
 	${NPM} run report-coverage
 	
@@ -21,4 +18,7 @@ install:
 codecov:
 	${NPM} install -g codecov
 
+.PHONY: test
+test:
+	${NPM} test
 	
