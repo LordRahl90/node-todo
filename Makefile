@@ -12,9 +12,13 @@ start:
 test-app:
 	${NPM} test
 
+coverage:
+	${NPM} run report-coverage
+	
 install:
 	${NPM} install
 
 codecov:
 	${NPM} install -g codecov
+
 	

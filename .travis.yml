@@ -13,7 +13,7 @@ install:
   # - npm link node-todo
 script:
   - make test
-  - codecov
+  - make coverage
 
 before-install:
   - git config credential.helper "store --file=.git/credentials"
