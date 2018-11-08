@@ -108,7 +108,7 @@ describe("empty show listings",function(){
 });
 
 describe('showATodo()',function(){
-    var id=[];
+    
     this.beforeAll(function(){
         mongoose.connect("mongodb://localhost/todo-api-test",{ useNewUrlParser: true });
         todos=[
@@ -122,9 +122,7 @@ describe('showATodo()',function(){
             }
         ];
 
-        Todo.insertMany(todos).then(function(item){
-            id.push(item);
-        });
+        return Todo.insertMany(todos)
     });
 
     this.afterAll(async function(){
@@ -191,15 +189,118 @@ describe('showATodo()',function(){
     });
 });
 
-// describe("updateTodo()", function(){
-//     it("Test The Update of a todo item, This should also be able to test for upserts.",function(){
-//         actual=service.updateTodo(item);
-//     });
-// });
+describe("updateTodo()", function(){
+
+    this.beforeAll(function(){
+        mongoose.connect("mongodb://localhost/todo-api-test",{ useNewUrlParser: true });
+        todos=[
+            {
+                "name":"hello",
+                "note":"world"
+            },
+            {
+                "name":"Hello again",
+                "note":"Another Note"
+            }
+        ];
+
+        return Todo.insertMany(todos)
+    });
+
+    this.afterAll(async function(){
+        await Todo.deleteMany({})
+        mongoose.disconnect();
+    });
 
 
-// describe("deleteTodo()", function(){
-//     it("Test Removal of a todo item", function(){
-//         actual=service.deleteTodo(id);
-//     });
-// });
+    it("Test The Update of a todo item, This should also be able to test for upserts.",async function(){
+        try{
+            let items=await service.listAllTodos();
+            let item=items[0];
+            item.note="Testing Microphone";
+            let actual=await service.updateTodo(item);
+            
+            expect(actual.n).equals(1);
+            expect(actual.ok).equals(1);
+        }
+        catch(err){
+            expect(err).to.be.equals(null);
+        }
+    });
+
+    it("Test The Update attempt for invalid Item",async function(){
+        try{
+            let invalidId=mongoose.Types.ObjectId();
+            let item={_id:invalidId};
+            let actual=await service.updateTodo(item);
+            expect(actual.n).to.be.equal(0);        //no record
+            expect(actual.nModified).to.be.equal(0); //no modification
+            expect(actual.ok).to.be.equal(1);   //attempt successful.
+        }
+        catch(err){
+            expect(err).to.be.equal(null);
+        }
+    });
+});
+
+
+describe("deleteTodo()", function(){
+
+    this.beforeAll(function(){
+        mongoose.connect("mongodb://localhost/todo-api-test",{ useNewUrlParser: true });
+        todos=[
+            {
+                "name":"hello",
+                "note":"world"
+            },
+            {
+                "name":"Hello again",
+                "note":"Another Note"
+            }
+        ];
+
+        return Todo.insertMany(todos)
+    });
+
+    this.afterAll(async function(){
+        // await Todo.deleteMany({})
+        mongoose.disconnect();
+    });
+
+    it("Test Removal of a todo item", async function(){
+        try{
+            let items=await service.listAllTodos();
+            let item=items[0];
+            let actual=await service.deleteTodo(item);
+            expect(actual.n).to.be.equal(1);
+            expect(actual.ok).to.be.equal(1);
+        }
+        catch(err){
+            expect(err).to.be.equal(null);
+        }
+    });
+
+    it("Test Removal of a non-existent todo item", async function(){
+        try{
+            let item={_id:mongoose.Types.ObjectId()}
+            let actual=await service.deleteTodo(item);
+            expect(actual.n).to.be.equal(0);
+            expect(actual.ok).to.be.equal(1);
+        }
+        catch(err){
+            expect(err).to.be.equal(null);
+        }
+    });
+
+    it("Test Removal of an empty item invalid Item",async function(){
+        try{
+            let item={};
+            let actual=await service.deleteTodo(item);
+            expect(actual.n).to.be.equal(0);
+            expect(actual.ok).to.be.equal(1);
+        }
+        catch(err){
+            expect(err).to.be.equal(null);
+        }
+    });
+});

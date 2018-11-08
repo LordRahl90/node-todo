@@ -31,6 +31,14 @@ var todoService={
     findTodoByID: async function(id){
         let result=await Todo.findById(id);
         return result;
+    },
+    updateTodo: async function(item){
+        let result=await Todo.updateOne({_id:item._id},{name:item.name,note:item.note,updated_at:Date.now()});
+        return result;
+    },
+    deleteTodo: async function(item){
+        let result=await Todo.deleteOne({_id: item._id});
+        return result;
     }
 
 };
