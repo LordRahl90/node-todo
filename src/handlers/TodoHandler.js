@@ -29,7 +29,55 @@ todoHandler={
             }
             res.status(400).json(errMessage);
         }
+    },
+    findItemByName: async function(req,res){
+        let result=await service.findTodoByName(req.params["name"]);
+        res.json({
+            success: true,
+            data: result
+        });
+    },
+    findItemByID: async function(req,res){
+        let result=await service.findTodoByID(req.params["id"]);
+        res.json({
+            success: true,
+            data: result
+        });
+    },
+    updateTodo: async function(req,res){
+        try{
+            let id=req.params["id"];
+            let item=req.body;
+            item._id=id;
+            result=await service.updateTodo(item);
+            if(result.nModified==undefined && result._id!==null && result._id!==undefined){
+                res.json({
+                    success: true,
+                    message: "New Item has been added",
+                    data: result
+                });
+            }
+            else{
+                res.json({
+                    success: true,
+                    message: result.nModified+" update(s) made",
+                    data:{}
+                });
+            }
+        }
+        catch(err){
+            let errMessage={};
+            for(let key in err){
+                errMessage[key]=err[key].message;
+            }
+            res.status(400).json({
+                success: false,
+                message: "Validation Issues",
+                data:errMessage
+            });
+        }
     }
 }
 
+//commonwealth text and win promo.
 module.exports =todoHandler;

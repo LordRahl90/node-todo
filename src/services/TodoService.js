@@ -33,8 +33,26 @@ var todoService={
         return result;
     },
     updateTodo: async function(item){
-        let result=await Todo.updateOne({_id:item._id},{name:item.name,note:item.note,updated_at:Date.now()});
-        return result;
+        let dbItem=await Todo.findOne({_id:item._id});
+            if(dbItem==null){
+                item.updated_at=Date.now();
+                return this.createNewTodo(item);
+            }else{
+                if(item.note==null){
+                    item.note=dbItem.note;
+                }
+                if(item.name==null){
+                    item.name=dbItem.name;
+                }
+        
+                let result=await Todo.updateOne({_id:item._id},
+                    {
+                        name:item.name,
+                        note:item.note,
+                        updated_at:Date.now()
+                    });
+                return result;
+            }
     },
     deleteTodo: async function(item){
         let result=await Todo.deleteOne({_id: item._id});

@@ -52,6 +52,17 @@ describe("Create a new TodoItem", function(){
         actual=await service.createNewTodo();
         expect(actual).equals("Invalid Item Provided");
     });
+
+
+    it("Tests the creation of new todo item with null schema",async function(){
+        actual=await service.createNewTodo(null);
+        expect(actual).equals("Invalid Item Provided");
+    });
+
+    it("Tests the creation of new todo item with an undefined schema",async function(){
+        actual=await service.createNewTodo(undefined);
+        expect(actual).equals("Invalid Item Provided");
+    });
 });
 
 describe("listAllTodos()", function(){
@@ -190,7 +201,6 @@ describe('showATodo()',function(){
 });
 
 describe("updateTodo()", function(){
-
     this.beforeAll(function(){
         mongoose.connect("mongodb://localhost/todo-api-test",{ useNewUrlParser: true });
         todos=[
@@ -228,6 +238,37 @@ describe("updateTodo()", function(){
         }
     });
 
+    it("Test The Update of a todo item with the note alone provided",async function(){
+        try{
+            let items=await service.listAllTodos();
+            let item=items[0];
+            item.note="Testing Microphone";
+            item.name=null;
+            let actual=await service.updateTodo(item);
+            
+            expect(actual.n).equals(1);
+            expect(actual.ok).equals(1);
+        }
+        catch(err){
+            expect(err).to.be.equals(null);
+        }
+    });
+
+    it("Test The Update of a todo item with the name alone provided",async function(){
+        try{
+            let items=await service.listAllTodos();
+            let item=items[0];
+            item.note=null;
+            let actual=await service.updateTodo(item);
+            
+            expect(actual.n).equals(1);
+            expect(actual.ok).equals(1);
+        }
+        catch(err){
+            expect(err).to.be.equals(null);
+        }
+    });
+
     it("Test The Update attempt for invalid Item",async function(){
         try{
             let invalidId=mongoose.Types.ObjectId();
@@ -238,7 +279,8 @@ describe("updateTodo()", function(){
             expect(actual.ok).to.be.equal(1);   //attempt successful.
         }
         catch(err){
-            expect(err).to.be.equal(null);
+            expect(err.name).to.not.be.equal(null);
+            expect(err.note).to.not.be.equal(null);
         }
     });
 });
