@@ -263,7 +263,7 @@ describe("deleteTodo()", function(){
     });
 
     this.afterAll(async function(){
-        // await Todo.deleteMany({})
+        await Todo.deleteMany({})
         mongoose.disconnect();
     });
 

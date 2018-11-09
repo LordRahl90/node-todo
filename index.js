@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost/todo-api',{useNewUrlParser:true}).then(()=
 
 
 app.use(morgan('combined',{stream: accessLogStream}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // app.use(logger);
 // app.use(testMid);
@@ -44,6 +45,9 @@ app.post('/',function(req,res){
 
 app.use('/api/todo',todoRouter);
 
-app.listen(3000,function(){
-    console.log("App Listening on port 3000");
-});
+// app.listen(3000,function(){
+//     console.log("App Listening on port 3000");
+// });
+app.listen(3000);
+console.log("Application Started on Port 3000");
+module.exports=app;
