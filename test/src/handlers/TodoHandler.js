@@ -67,7 +67,6 @@ describe("Fetch Empty List of Todos",()=>{
             expect(responseData.data.length).to.be.equal(0);
         }
         catch(err){
-            // console.log(err);
             expect(err).to.be.equal(null);
         }
     });
